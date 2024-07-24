@@ -1,5 +1,6 @@
 import express from "express";
 import helmet from "helmet";
+import { getActivities } from "./functions/functions.js";
 const app = express();
 const port = 3000;
 app.use(helmet());
@@ -7,15 +8,14 @@ app.use(helmet());
 app.get("/", (req, res) => {
   res.status(200).send("Hello world!");
 });
-let data = [{
-	"id": "54321234", // UUID
-	"activity_submitted": "1719486190058", // simple Epoc timestamp (Date.now() in JS)
-	"activity_type": "run", // choose some standard types
-	"activity_duration": "30", // choose standard unit type (minutes probably)
-}]
 
-app.get("/activities", (req, res) => {
-  res.status(200).send(data)
+app.get("/activities", async (req, res) => {
+  try {
+    const activity = await getActivities();
+    res.status(200).json(activity);
+  } catch (error) {
+    res.status(500).send("Oops the status code is 500");
+  }
 });
 
 app.listen(port, () => {

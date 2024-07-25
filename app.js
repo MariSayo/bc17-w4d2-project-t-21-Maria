@@ -26,31 +26,25 @@ app.get("/activities", async (req, res) => {
 
 app.post("/activities", async (req, res) => {
   try {
-    const testActivity = req.body.testActivity;
-    if (
-      !testActivity ||
-      "activity_type" in req.body ||
-      "activity_duration" in req.body
-    ) {
+    //if any of these conditions are true then we don't want to continue
+	if (Object.keys(req.body).length === 0 || !("activity_type" in req.body) || !("activity_duration" in req.body) ) {
       res.status(400).json({
         success: false,
         payload: null,
-      });
-    }
-    console.log("activity_type" in req.body);
-    console.log("activity_duration" in req.body);
+      })
+    } else {
     // add validation to make sure activity type and duration is entered and save permenantly
     const completedActivities = {
       ...req.body,
       id: uuid4(),
       activity_submitted: Date.now(),
     };
-    console.log(completedActivities);
     const activity = await createActivities(completedActivities);
     res.status(200).json({
       success: true,
       payload: activity,
     });
+	}
   } catch (error) {
     res.status(500).send("Oops the status code is 500");
   }

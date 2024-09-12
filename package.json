@@ -4,9 +4,13 @@
   "description": "Feel free to delete this and start from scratch.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "lint": "eslint .",
+    "prepare": "husky",
+    "prettier": "npx prettier . --write",
+    "format": "prettier --write .",
+    "test": "vitest"
   },
   "author": "",
   "type": "module",
@@ -17,6 +21,7 @@
     "uuid4": "^2.0.3"
   },
   "devDependencies": {
+    "husky": "^9.1.6",
     "nodemon": "^3.1.4"
   }
 }

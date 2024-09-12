@@ -38,7 +38,7 @@ app.get("/activities", async (req, res) => {
     res.status(500).send({
       success: false,
       payload: "Internal server error",
-   });
+    });
   }
 });
 
@@ -53,7 +53,8 @@ app.post("/activities", async (req, res) => {
     ) {
       res.status(400).json({
         success: false,
-        payload: "You did not enter in the correct object:keys, please enter keys as activity_type and activity_duration",
+        payload:
+          "You did not enter in the correct object:keys, please enter keys as activity_type and activity_duration",
       });
     } else {
       const completedActivities = {
@@ -71,7 +72,7 @@ app.post("/activities", async (req, res) => {
     res.status(500).send({
       success: false,
       payload: "Oops, internal server error",
-   });
+    });
   }
 });
 
@@ -87,28 +88,26 @@ app.put("/activities", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       success: false,
-      payload: {error: err.message},
-   });
+      payload: { error: err.message },
+    });
   }
 });
 
 //This function deletes the code block of an id in the activities.json file array
 app.delete("/activities/:id", async (req, res) => {
-  try{const deletedActivity = await deleteActivity (req.params.id) 
+  try {
+    const deletedActivity = await deleteActivity(req.params.id);
     res.status(200).json({
-       success: true,
-       payload: deletedActivity,
+      success: true,
+      payload: deletedActivity,
     });
-  }
-  catch (err) {
+  } catch (err) {
     res.status(400).json({
       success: false,
-      payload: {error: err.message},
-   });
+      payload: { error: err.message },
+    });
   }
-} );
-
-
+});
 
 // port is constantly listening for 3000 whilst being in global scope
 
